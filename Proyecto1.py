@@ -1,7 +1,9 @@
 from random import randint
+
 n = int(input("Cantidad de productos: ")) #Cantidad de productos
 Cantrequerimientos = int(input("Cantidad de requisitos: ")) # cantidad de requisitos
 
+#Limites para la generacion de los parametros
 requerimientos_inf=int(input("Limite Inferior de los requerimientos: "))
 requerimientos_sup=int(input("Limite Superior de los requerimientos: "))
 
@@ -35,7 +37,7 @@ for i in range(n):
     print("producto " + str(i+1) + ":", requerimientos_i)
 
 for x in range(Cantrequerimientos):
-    print("Requisito", x+1, ":", Utilidad[x], Disponibilidad[x])
+    print("Requisito", x+1, ":", "Utilidad:",Utilidad[x], "Disponibilidad", Disponibilidad[x])
 
 #Generar Modelo Lindo
 fo = "max "
@@ -46,7 +48,8 @@ for i in range(n):
     else:
         fo+="\n"
 fo+="\n"
-#Reestricciones
+
+#Crear Reestricciones
 Rest = "st\n"
 for i in range(Cantrequerimientos):
     for j in range(n):
@@ -59,6 +62,7 @@ for i in range(Cantrequerimientos):
 Rest += "\n"
 for i in range(n):
     Rest += "x" + str(i+1) + " >= 0\n"
+    
 #Crear Archivo
 archivo = open("Modelo.ltx","w")
 archivo.write(fo)
