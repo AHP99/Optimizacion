@@ -37,16 +37,16 @@ for i in range(n):
 for j in range(Cantrequerimientos):
     ValorDisponibilidad  = randint(Disponibilidad_inf, Disponibilidad_sup)
     Disponibilidad.append(ValorDisponibilidad)
-    
+
 
 #Generar Modelo Lindo
-fo = "max "
+fo = "max: "
 for i in range(n):
     fo += str(Utilidad[i]) + 'x' + str(i+1)
     if i < n-1:
         fo+=" + "
     else:
-        fo+="\n"
+        fo+=";\n"
 fo+="\n"
 #Reestricciones
 Rest = "st\n"
@@ -56,11 +56,11 @@ for i in range(Cantrequerimientos):
         if j < n-1:
             Rest+=" + "
     Rest += " <= "
-    Rest += str(Disponibilidad[i]) + "\n"
+    Rest += str(Disponibilidad[i]) + ";\n"
 
 Rest += "\n"
 for i in range(n):
-    Rest += "x" + str(i+1) + " >= 0\n"
+    Rest += "x" + str(i+1) + " >= 0;\n"
 #Crear Archivo
 archivo = open("Modelo.ltx","w")
 archivo.write(fo)
