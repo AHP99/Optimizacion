@@ -17,7 +17,6 @@ def creador(Nodos,n_regiones):
 
     for i in range(Nodos): ##toda lista debe tener un minimo de un elemento y un maximo posible de n_regiones.
         n_colindantes = randint(1,n_regiones)
-        print(n_colindantes)
         usados = []
         if(n_colindantes == 1):
             n_colindantes+=1
@@ -59,3 +58,46 @@ buscar(colindantes)
 
 print("Nuevo Colindantes:")
 print(colindantes)
+
+#Generar Modelo LP Solver
+#Regiones
+fo = "max: "
+for i in range(n_regiones):
+    fo +=  ' x' + str(i+1)
+    if i < n_regiones-1:
+        fo += " + "
+    else:
+        fo += ";\n"
+fo += "\n"
+
+#Nodos
+Rest = ""
+
+for i in range(n_regiones):
+    for LL in colindantes:
+        for L in LL:
+            if i+1 == L:
+                Rest += 'x'+ str(1+colindantes.index(LL)) +' + '
+            
+    Rest = Rest[:-3]
+    Rest += " <= 1;\n"
+
+Rest += "\n"
+        
+            
+
+"""
+for i in range(colindantes):
+    for j in range():
+        Rest += str(requerimientos[j][i]) + ' x' + str(j+1)
+        if j < n-1:
+            Rest += " + "
+    Rest += " <= "
+    Rest += str(Disponibilidad[i]) + ";\n"
+
+Rest += "\n"
+"""
+archivo = open("empaquetamiento.lp","w")
+archivo.write(fo)
+archivo.write(Rest)
+archivo.close()
